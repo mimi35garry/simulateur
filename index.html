@@ -4,6 +4,31 @@
     <meta charset="UTF-8">
 <title>Simulateur</title>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+</style>
 </head>
 <body onload="Calcs()" class="bg-light text-dark">
   <div class="container">
@@ -104,6 +129,9 @@
         <p>Salaire Net : <span id ="IdSalaireNetBis"></span> € + Indemnitées hebdo : <span id="IdIndemnHebdoBis"></span> € * 4 semaines = <span id="IdIndemnHebdoMensuel"></span> € + Paniers (repas hebdo + gouter hebdo)*4 semaines = <span id="IdResultatPaniers"></span></span> € mensuel</p>
         <p><button class="btn btn-primary" onclick="CalculNetPayer()">Salaire Net à payer</button>  <span id="IdResultatSalaire"></span> €</p>
         <hr class="my-4">
+      
+      <button class="collapsible">Open Collapsible</button>
+<div class="content">
         <h4>Calcul du plafond pajemploi</h4>
         <br>
         <div onchange="Calcs()">
@@ -128,6 +156,7 @@
             Taux horaire max = Salaire max / Heures mensualisées
           </p>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -416,6 +445,21 @@
   function CalculNetPayer(){
     IdResultatSalaire.innerText = ((parseFloat(IdSalaireNet.textContent) + parseFloat(IdIndemnHebdoMensuel.textContent) + parseFloat(IdResultatPaniers.textContent))).toFixed(2);
   }
+      //masquage zone
+   var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } 
+  });
+}
   </script>
 </body>
 </html>

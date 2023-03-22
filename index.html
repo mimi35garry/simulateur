@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+<title>Simulateur</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body onload="Calcs()" class="bg-light text-dark">
+  <div class="container">
+    <table id="tableauHeure" class="table" onchange="tableauHeureCalc()">
+      <tbody>
+        <tr>
+          <th scope="row">LUNDI</th>
+          <td><input type="time" id="heureslundidebut"></td>
+          <td><input type="time" id="heureslundifin"></td>
+          <td><span id="heurelundi">0</span> Heures</td>
+          <td><span id="eurolundi">0</span> € Indemnitées</td>
+        </tr>
+        <tr>
+          <th scope="row">MARDI</th>
+          <td><input type="time" id="heuresmardidebut"></td>
+          <td><input type="time" id="heuresmardifin"></td>
+          <td><span id="heuremardi">0</span> Heures </td>
+          <td><span id="euromardi">0</span> € Indemnitées</td>
+        </tr>
+        <tr>
+          <th scope="row">MERCREDI</th>
+          <td><input type="time" id="heuresmercredidebut"></td>
+          <td><input type="time" id="heuresmercredifin"></td>
+          <td><span id="heuremercredi">0</span> Heures </td>
+          <td><span id="euromercredi">0</span> € Indemnitées</td>
+        </tr>
+        <tr>
+          <th scope="row">JEUDI</th>
+          <td><input type="time" id="heuresjeudidebut"></td>
+          <td><input type="time" id="heuresjeudifin"></td>
+          <td><span id="heurejeudi">0</span> Heures </td>
+          <td><span id="eurojeudi">0</span> € Indemnitées</td>
+        </tr>
+        <tr>
+          <th scope="row">VENDREDI</th>
+          <td><input type="time" id="heuresvendredidebut"></td>
+          <td><input type="time" id="heuresvendredifin"></td>
+          <td><span id="heurevendredi">0</span> Heures </td>
+          <td><span id="eurovendredi">0</span> € Indemnitées</td>
+        </tr>
+        <tr>
+          <th scope="row">SAMEDI</th>
+          <td><input type="time" id="heuressamedidebut"></td>
+          <td><input type="time" id="heuressamedifin"></td>
+          <td><span id="heuresamedi">0</span> Heures </td>
+          <td><span id="eurosamedi">0</span> € Indemnitées</td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="btn btn-info" onclick="Peupler()">Remplir idem lundi, jusqu'au vendredi</button>
+    <p>Bases indemnitées</p>
+    <table class="table" id="tableauIndemn">
+      <tbody>
+        <tr>
+          <th scope="row">heure</th>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+          <td>6</td>
+          <td>7</td>
+          <td>8</td>
+          <td>9</td>
+          <td>10</td>
+          <td>11</td>
+          <td>12</td>
+          <td>13</td>
+        </tr>
+        <tr>
+          <th scope="row">Euros</th>
+          <td><input type="number" id="valIndemn1" value="2.65"step="0.01"></td>
+          <td><input type="number" id="valIndemn2" value="2.65"step="0.01"></td>
+          <td><input type="number" id="valIndemn3" value="2.65"step="0.01"></td>
+          <td><input type="number" id="valIndemn4" value="2.65"step="0.01"></td>
+          <td><input type="number" id="valIndemn5" value="2.65"step="0.01"></td>
+          <td><input type="number" id="valIndemn6" value="2.65"step="0.01"></td>
+          <td><input type="number" id="valIndemn7" value="2.80"step="0.01"></td>
+          <td><input type="number" id="valIndemn8" value="3.21"step="0.01"></td>
+          <td><input type="number" id="valIndemn9" value="3.61"step="0.01"></td>
+          <td><input type="number" id="valIndemn10" value="4.01"step="0.01"></td>
+          <td><input type="number" id="valIndemn11" value="4.41"step="0.01"></td>
+          <td><input type="number" id="valIndemn12" value="4.81"step="0.01"></td>
+          <td><input type="number" id="valIndemn13" value="5.01"step="0.01"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-lg-12">
+        <p>Heures hebdomadaires : <span id="NbHeuresHebdo"></span> Heures</p>
+        <p>Indemnitées hebdomadaires : <span id="IdIndemnHebdo"></span> €</p>
+        <button class="btn btn-info" onclick="CalculHebdo()">Calcul hebdo</button>
+        <p>Heures hebdo : <span id ="NbHeuresHebdobis"></span> Heures X Nombre de semaines <input type = "number" id="NbSemaines"  min="1" max="52"> Semaines X Taux horaire : <input type="number" id="TauxHoraire"  step="0.01" min="3.00" max="10"> €</p>
+        <p><button class="btn btn-info" onclick="CalculSalaireNet()">Diviser par 12</button> = <span id ="IdSalaireNet"></span> € de salaire Net</p>
+        <p>Prix repas : <input type = "number" id="IdRepas" step="0.5"> X Nombre de jours hebdo : <input type = "number" id="IdNbRepas" step="0.5"> = <span id="IdResultatRepas"></span> € repas hebdo</p>
+        <p>Prix gouter : <input type = "number" id="IdGouter" step="0.5"> X Nombre de jours hebdo : <input type = "number" id="IdNbGouter" step="0.5"> = <span id="IdResultatGouter"></span> € gouter hebdo</p>
+        <button class="btn btn-info" onclick="CalculRepas()">Calcul repas/gouter</button>
+        <p>Salaire Net : <span id ="IdSalaireNetBis"></span> € + Indemnitées hebdo : <span id="IdIndemnHebdoBis"></span> € * 4 semaines = <span id="IdIndemnHebdoMensuel"></span> € + Paniers (repas hebdo + gouter hebdo)*4 semaines = <span id="IdResultatPaniers"></span></span> € mensuel</p>
+        <p><button class="btn btn-primary" onclick="CalculNetPayer()">Salaire Net à payer</button>  <span id="IdResultatSalaire"></span> €</p>
+        <hr class="my-4">
+        <h4>Calcul du taux horaire</h4>
+        <br>
+        <div onchange="Calcs()">
+          <p>Jours mensualisés : 
+            <input type="number" id="NbJourMensualise" min="1" max="6" value="1"step="1"> * <input type="number" id="NbSemaineMensualise" min="1" max="53" value="1" step="1"> / 12 = <b><span id="ResultatJoursMensualise"></span></b> Jours
+            <br>
+            Jours mensualisés = (Nombre de jours * Nombre de semaines) / 12
+          </p>
+          <p>Heures mensualisées = 
+            <input type="number" id="NbHeuresMensualise" min="1" max="60" value="1" step="1"> * <b><span id="ReportNbSemaineMensualise"></span></b> / 12 = <b><span id="ResultatHeuresMensualise"></span></b> Heures
+            <br>
+            Heures mensualisées = (Nombre d'heures * Nombre de semaines) / 12
+          </p>
+          <p>Salaire max : 
+            <input type="number" id="PlafondCAF" value="39.98"step="0.01"> * <b><span id="ReportResultatJoursMensualise"></span></b> = <b><span id="ResultatSalaireMax"></span></b> Euros
+            <br>
+            Salaire max = Plafond journalier CAF * Jours mensualisés
+          </p>
+          <p>Taux horaire max : 
+            <b><span id="ReportResultatSalaireMax"></span></b> / <b><span id="ReportResultatHeureMensualise"></span></b> = <b><span id="ResultatTauxHoraireMax"></span></b> Euros
+            <br>
+            Taux horaire max = Salaire max / Heures mensualisées
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    function Peupler(){
+      var heureLundiDebut = document.getElementById("heureslundidebut").value
+      var heureLundiFin = document.getElementById("heureslundifin").value
+      var lundihrs1 = heureLundiDebut.split(":")[0];
+      var lundimins1 = heureLundiDebut.split(":")[1];
+      var lundimins1text = lundimins1
+      lundimins1 = lundimins1/60;
+      var lundihrs2 = heureLundiFin.split(":")[0];
+      var lundimins2 = heureLundiFin.split(":")[1];
+      lundimins2 = lundimins2/60;
+      var lunditempheure = parseFloat(((parseInt(lundihrs2) + lundimins2) - (parseInt(lundihrs1) + lundimins1)));
+      if (isNaN(lunditempheure))
+        alert("Renseigner un horaire valide");
+      else
+      {
+        document.getElementById("heuresmardidebut").value = heureLundiDebut
+        document.getElementById("heuresmercredidebut").value = heureLundiDebut
+        document.getElementById("heuresjeudidebut").value = heureLundiDebut
+        document.getElementById("heuresvendredidebut").value = heureLundiDebut
+        document.getElementById("heuresmardifin").value = heureLundiFin
+        document.getElementById("heuresmercredifin").value = heureLundiFin
+        document.getElementById("heuresjeudifin").value = heureLundiFin
+        document.getElementById("heuresvendredifin").value = heureLundiFin
+        var mardihrs1 = heuresmardidebut.value.split(":")[0];
+        var mardimins1 = heuresmardidebut.value.split(":")[1];
+        mardimins1 = mardimins1/60;
+        var mardihrs2 = heuresmardifin.value.split(":")[0];
+        var mardimins2 = heuresmardifin.value.split(":")[1];
+        mardimins2 = mardimins2/60;
+        var marditempheure = parseFloat(((parseInt(mardihrs2) + mardimins2) - (parseInt(mardihrs1) + mardimins1)));
+        if (isNaN(marditempheure))
+          heuremardi.innerText = "0";
+        else{
+          heuremardi.innerText = (parseFloat(((parseInt(mardihrs2) + mardimins2) - (parseInt(mardihrs1) + mardimins1)))).toFixed(2);
+        }
+        var indemnmardi=  parseFloat(heuremardi.textContent);//transforme le texte en decimal
+        euromardi.innerText = calcIndemn(indemnmardi);
+        var mercredihrs1 = heuresmercredidebut.value.split(":")[0];
+        var mercredimins1 = heuresmercredidebut.value.split(":")[1];
+        mercredimins1 = mercredimins1/60;
+        var mercredihrs2 = heuresmercredifin.value.split(":")[0];
+        var mercredimins2 = heuresmercredifin.value.split(":")[1];
+        mercredimins2 = mercredimins2/60;
+        var mercreditempheure = parseFloat(((parseInt(mercredihrs2) + mercredimins2) - (parseInt(mercredihrs1) + mercredimins1)));
+        if (isNaN(mercreditempheure))
+          heuremercredi.innerText = "0";
+        else{
+          heuremercredi.innerText = (parseFloat(((parseInt(mercredihrs2) + mercredimins2) - (parseInt(mercredihrs1) + mercredimins1)))).toFixed(2);
+        }
+        var indemnmercredi=  parseFloat(heuremercredi.textContent);//transforme le texte en decimal
+        euromercredi.innerText = calcIndemn(indemnmercredi);
+        var jeudihrs1 = heuresjeudidebut.value.split(":")[0];
+        var jeudimins1 = heuresjeudidebut.value.split(":")[1];
+        jeudimins1 = jeudimins1/60;
+        var jeudihrs2 = heuresjeudifin.value.split(":")[0];
+        var jeudimins2 = heuresjeudifin.value.split(":")[1];
+        jeudimins2 = jeudimins2/60;
+        var jeuditempheure = parseFloat(((parseInt(jeudihrs2) + jeudimins2) - (parseInt(jeudihrs1) + jeudimins1)));
+        if (isNaN(jeuditempheure))
+          heurejeudi.innerText = "0";
+        else{
+          heurejeudi.innerText = (parseFloat(((parseInt(jeudihrs2) + jeudimins2) - (parseInt(jeudihrs1) + jeudimins1)))).toFixed(2);
+        }
+        var indemnjeudi=  parseFloat(heurejeudi.textContent);//transforme le texte en decimal
+        eurojeudi.innerText = calcIndemn(indemnjeudi);
+        var vendredihrs1 = heuresvendredidebut.value.split(":")[0];
+        var vendredimins1 = heuresvendredidebut.value.split(":")[1];
+        vendredimins1 = vendredimins1/60;
+        var vendredihrs2 = heuresvendredifin.value.split(":")[0];
+        var vendredimins2 = heuresvendredifin.value.split(":")[1];
+        vendredimins2 = vendredimins2/60;
+        var vendreditempheure = parseFloat(((parseInt(vendredihrs2) + vendredimins2) - (parseInt(vendredihrs1) + vendredimins1)));
+        if (isNaN(vendreditempheure))
+          heurevendredi.innerText = "0";
+        else{
+          heurevendredi.innerText = (parseFloat(((parseInt(vendredihrs2) + vendredimins2) - (parseInt(vendredihrs1) + vendredimins1)))).toFixed(2);
+        }
+        var indemnvendredi=  parseFloat(heurevendredi.textContent);//transforme le texte en decimal
+        eurovendredi.innerText = calcIndemn(indemnvendredi);
+      }
+    }
+    function Calcs(){
+      var NbJourMensuel = document.getElementById("NbJourMensualise").value;
+      var NbSemaineMensuel = document.getElementById("NbSemaineMensualise").value;
+      var NbHeurePourMensualisation = document.getElementById("NbHeuresMensualise").value;
+      var PlafondCAF = document.getElementById("PlafondCAF").value
+      var NbSemaineMensuel = document.getElementById("NbSemaineMensualise").value;
+      var resultatJourMensualise
+      var resultatHeureMensuel
+      ReportNbSemaineMensualise.textContent = document.getElementById("NbSemaineMensualise").value
+      resultatJourMensualise = Math.round(((NbJourMensuel*NbSemaineMensuel)/12)*100)/100;
+      ResultatJoursMensualise.textContent = resultatJourMensualise;
+      ReportResultatJoursMensualise.textContent = resultatJourMensualise;
+      ResultatSalaireMax.textContent = Math.round((resultatJourMensualise * PlafondCAF)*100)/100;
+      ReportResultatSalaireMax.textContent = Math.round((resultatJourMensualise * PlafondCAF)*100)/100;
+      resultatHeureMensuel = Math.round(((NbHeurePourMensualisation * NbSemaineMensuel)/12)*100)/100;
+      ResultatHeuresMensualise.textContent = resultatHeureMensuel;
+      ReportResultatHeureMensualise.textContent = resultatHeureMensuel
+      ResultatTauxHoraireMax.textContent = Math.round((ResultatSalaireMax.textContent / resultatHeureMensuel)*100)/100;
+    }
+    function tableauHeureCalc() {
+      var lundihrs1 = heureslundidebut.value.split(":")[0];
+      var lundimins1 = heureslundidebut.value.split(":")[1];
+      lundimins1 = lundimins1/60;
+      var lundihrs2 = heureslundifin.value.split(":")[0];
+      var lundimins2 = heureslundifin.value.split(":")[1];
+      lundimins2 = lundimins2/60;
+      var lunditempheure = parseFloat(((parseInt(lundihrs2) + lundimins2) - (parseInt(lundihrs1) + lundimins1)));
+      if (isNaN(lunditempheure))
+        heurelundi.innerText = "0";
+      else{
+        heurelundi.innerText = (parseFloat(((parseInt(lundihrs2) + lundimins2) - (parseInt(lundihrs1) + lundimins1)))).toFixed(2);
+      }
+
+      var indemnlundi=  parseFloat(heurelundi.textContent);//transforme le texte en decimal
+      eurolundi.innerText = calcIndemn(indemnlundi);
+
+      var mardihrs1 = heuresmardidebut.value.split(":")[0];
+      var mardimins1 = heuresmardidebut.value.split(":")[1];
+      mardimins1 = mardimins1/60;
+      var mardihrs2 = heuresmardifin.value.split(":")[0];
+      var mardimins2 = heuresmardifin.value.split(":")[1];
+      mardimins2 = mardimins2/60;
+      var marditempheure = parseFloat(((parseInt(mardihrs2) + mardimins2) - (parseInt(mardihrs1) + mardimins1)));
+      if (isNaN(marditempheure))
+        heuremardi.innerText = "0";
+      else{
+      heuremardi.innerText = (parseFloat(((parseInt(mardihrs2) + mardimins2) - (parseInt(mardihrs1) + mardimins1)))).toFixed(2);
+      }
+
+      var indemnmardi=  parseFloat(heuremardi.textContent);//transforme le texte en decimal
+      euromardi.innerText = calcIndemn(indemnmardi);
+
+      var mercredihrs1 = heuresmercredidebut.value.split(":")[0];
+      var mercredimins1 = heuresmercredidebut.value.split(":")[1];
+      mercredimins1 = mercredimins1/60;
+      var mercredihrs2 = heuresmercredifin.value.split(":")[0];
+      var mercredimins2 = heuresmercredifin.value.split(":")[1];
+      mercredimins2 = mercredimins2/60;
+      var mercreditempheure = parseFloat(((parseInt(mercredihrs2) + mercredimins2) - (parseInt(mercredihrs1) + mercredimins1)));
+      if (isNaN(mercreditempheure))
+        heuremercredi.innerText = "0";
+      else{
+      heuremercredi.innerText = (parseFloat(((parseInt(mercredihrs2) + mercredimins2) - (parseInt(mercredihrs1) + mercredimins1)))).toFixed(2);
+      }
+
+      var indemnmercredi=  parseFloat(heuremercredi.textContent);//transforme le texte en decimal
+      euromercredi.innerText = calcIndemn(indemnmercredi);
+
+      var jeudihrs1 = heuresjeudidebut.value.split(":")[0];
+      var jeudimins1 = heuresjeudidebut.value.split(":")[1];
+      jeudimins1 = jeudimins1/60;
+      var jeudihrs2 = heuresjeudifin.value.split(":")[0];
+      var jeudimins2 = heuresjeudifin.value.split(":")[1];
+      jeudimins2 = jeudimins2/60;
+      var jeuditempheure = parseFloat(((parseInt(jeudihrs2) + jeudimins2) - (parseInt(jeudihrs1) + jeudimins1)));
+      if (isNaN(jeuditempheure))
+        heurejeudi.innerText = "0";
+      else{
+        heurejeudi.innerText = (parseFloat(((parseInt(jeudihrs2) + jeudimins2) - (parseInt(jeudihrs1) + jeudimins1)))).toFixed(2);
+      }
+      var indemnjeudi=  parseFloat(heurejeudi.textContent);//transforme le texte en decimal
+      eurojeudi.innerText = calcIndemn(indemnjeudi);
+
+      var vendredihrs1 = heuresvendredidebut.value.split(":")[0];
+      var vendredimins1 = heuresvendredidebut.value.split(":")[1];
+      vendredimins1 = vendredimins1/60;
+      var vendredihrs2 = heuresvendredifin.value.split(":")[0];
+      var vendredimins2 = heuresvendredifin.value.split(":")[1];
+      vendredimins2 = vendredimins2/60;
+      var vendreditempheure = parseFloat(((parseInt(vendredihrs2) + vendredimins2) - (parseInt(vendredihrs1) + vendredimins1)));
+      if (isNaN(vendreditempheure))
+        heurevendredi.innerText = "0";
+      else{
+        heurevendredi.innerText = (parseFloat(((parseInt(vendredihrs2) + vendredimins2) - (parseInt(vendredihrs1) + vendredimins1)))).toFixed(2);
+      }
+
+      var indemnvendredi=  parseFloat(heurevendredi.textContent);//transforme le texte en decimal
+      eurovendredi.innerText = calcIndemn(indemnvendredi);
+      var samedihrs1 = heuressamedidebut.value.split(":")[0];
+      var samedimins1 = heuressamedidebut.value.split(":")[1];
+      samedimins1 = samedimins1/60;
+      var samedihrs2 = heuressamedifin.value.split(":")[0];
+      var samedimins2 = heuressamedifin.value.split(":")[1];
+      samedimins2 = samedimins2/60;
+      var sameditempheure = parseFloat(((parseInt(samedihrs2) + samedimins2) - (parseInt(samedihrs1) + samedimins1)));
+      if (isNaN(sameditempheure))
+        heuresamedi.innerText = "0";
+      else{
+        heuresamedi.innerText = (parseFloat(((parseInt(samedihrs2) + samedimins2) - (parseInt(samedihrs1) + samedimins1)))).toFixed(2);
+      }
+
+      var indemnsamedi=  parseFloat(heuresamedi.textContent);//transforme le texte en decimal
+      eurosamedi.innerText = calcIndemn(indemnsamedi);
+    }
+
+    var IdRepas = document.getElementById("IdRepas");
+    var IdNbRepas = document.getElementById("IdNbRepas");
+    var IdResultatRepas = document.getElementById("IdResultatRepas");
+    var IdGouter = document.getElementById("IdGouter");
+    var IdNbGouter = document.getElementById("IdNbGouter");
+    var IdResultatGouter = document.getElementById("IdResultatGouter");
+    var IdResultatPaniers = document.getElementById("IdResultatPaniers");
+    var IdNbSemaines = document.getElementById("NbSemaines");
+    var IdTauxHoraire = document.getElementById("TauxHoraire");
+    var IdSalaireNet = document.getElementById("IdSalaireNet");
+    var IdSalaireNetBis = document.getElementById("IdSalaireNetBis");
+    var IdResultatSalaire = document.getElementById("IdResultatSalaire");
+    var NbHeuresHebdo = document.getElementById("NbHeuresHebdo");
+    var NbHeuresHebdobis = document.getElementById("NbHeuresHebdobis");
+    var NbHeuresHebdoTer = document.getElementById("NbHeuresHebdobTer");
+    var NbHeuresHebdoMensuel = document.getElementById("NbHeuresHebdoMensuel");    
+    var IdIndemnHebdo = document.getElementById("IdIndemnHebdo");
+    var IdIndemnHebdoBis = document.getElementById("IdIndemnHebdoBis");
+    var IdIndemnHebdoMensuel = document.getElementById("IdIndemnHebdoMensuel");
+    function calcIndemn(heure){
+        //suivant le nombres dheures les indemnité changent
+      switch(true){
+        case (heure<1):
+          return 0;
+          break;
+        case (heure<2):
+          return valIndemn1.value;
+          break;
+        case (heure<3):
+          return valIndemn2.value;
+          break;
+        case (heure<4):
+          return valIndemn3.value;
+          break;
+        case (heure<5):
+          return valIndemn4.value;
+          break;
+        case (heure<6):
+          return valIndemn5.value;
+          break;
+        case (heure<7):
+          return valIndemn6.value;
+          break;
+        case (heure<8):
+          return valIndemn7.value;
+          break;
+        case (heure<9):
+          return valIndemn8.value;
+          break;
+        case (heure<10):
+          return valIndemn9.value;
+          break;
+        case (heure<11):
+          return valIndemn10.value;
+          break;
+        case (heure<12):
+          return valIndemn11.value;
+          break;
+        case (heure<13):
+          return valIndemn12.value;
+          break;
+        case (heure<14):
+          return valIndemn13.value;
+          break;
+        case (heure>=14):
+          return valIndemn13.value;
+          break;
+      }
+}
+  function CalculHebdo() {
+    NbHeuresHebdo.innerText = (parseFloat(heurelundi.textContent)+parseFloat(heuremardi.textContent)+parseFloat(heuremercredi.textContent)+parseFloat(heurejeudi.textContent)+parseFloat(heurevendredi.textContent)+parseFloat(heuresamedi.textContent)).toFixed(2);
+    NbHeuresHebdobis.innerText = (parseFloat(heurelundi.textContent)+parseFloat(heuremardi.textContent)+parseFloat(heuremercredi.textContent)+parseFloat(heurejeudi.textContent)+parseFloat(heurevendredi.textContent)+parseFloat(heuresamedi.textContent)).toFixed(2);
+    IdIndemnHebdo.innerText = (parseFloat(eurolundi.textContent)+parseFloat(euromardi.textContent)+parseFloat(euromercredi.textContent)+parseFloat(eurojeudi.textContent)+parseFloat(eurovendredi.textContent)+parseFloat(eurosamedi.textContent)).toFixed(2);
+    IdIndemnHebdoBis.innerText = (parseFloat(eurolundi.textContent)+parseFloat(euromardi.textContent)+parseFloat(euromercredi.textContent)+parseFloat(eurojeudi.textContent)+parseFloat(eurovendredi.textContent)+parseFloat(eurosamedi.textContent)).toFixed(2);
+    IdIndemnHebdoMensuel.innerText = IdIndemnHebdo.textContent*4;
+  }
+  function CalculSalaireNet(){
+    IdSalaireNet.innerText =(NbHeuresHebdo.textContent * IdNbSemaines.value * IdTauxHoraire.value)/12;
+    IdSalaireNetBis.innerText =(NbHeuresHebdo.textContent * IdNbSemaines.value * IdTauxHoraire.value)/12;
+  }
+  function CalculRepas(){
+    IdResultatRepas.innerText = IdRepas.value*IdNbRepas.value;
+    IdResultatGouter.innerText = IdGouter.value*IdNbGouter.value;
+    IdResultatPaniers.innerText = ((IdRepas.value*IdNbRepas.value)+(IdGouter.value*IdNbGouter.value)*4);
+  }
+  function CalculNetPayer(){
+    IdResultatSalaire.innerText = ((parseFloat(IdSalaireNet.textContent) + parseFloat(IdIndemnHebdoMensuel.textContent) + parseFloat(IdResultatPaniers.textContent))).toFixed(2);
+  }
+  </script>
+</body>
+</html>
